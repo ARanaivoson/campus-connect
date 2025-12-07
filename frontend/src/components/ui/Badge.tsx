@@ -5,6 +5,8 @@ interface BadgeProps {
   size?: 'sm' | 'md';
   children: React.ReactNode;
   className?: string;
+  icon?: React.ReactNode;
+  title?: string;
 }
 
 const Badge: React.FC<BadgeProps> = ({
@@ -12,8 +14,10 @@ const Badge: React.FC<BadgeProps> = ({
   variant = 'primary',
   size = 'md',
   className = '',
+  icon,
+  title,
 }) => {
-  const baseClasses = 'inline-flex items-center rounded-full font-medium';
+  const baseClasses = 'inline-flex items-center rounded-full font-medium select-none';
   
   const variantClasses = {
     primary: 'bg-primary-100 text-primary-700',
@@ -31,6 +35,8 @@ const Badge: React.FC<BadgeProps> = ({
   
   return (
     <span
+      role="status"
+      title={title}
       className={`
         ${baseClasses}
         ${variantClasses[variant]}
@@ -38,6 +44,7 @@ const Badge: React.FC<BadgeProps> = ({
         ${className}
       `}
     >
+      {icon && <span className="mr-1 flex items-center">{icon}</span>}
       {children}
     </span>
   );

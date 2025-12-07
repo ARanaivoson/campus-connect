@@ -23,7 +23,7 @@ export interface Attachment {
 
 export interface Message {
   _id: string;
-  sender: string;
+  sender: User | string;
   receiver: User;
   content: string;
   isRead: boolean;

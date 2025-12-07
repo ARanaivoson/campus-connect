@@ -1,20 +1,40 @@
-import '../styles/globals.css';
+// app/layout.tsx
+'use client';
 
-export const metadata={
-  title: 'Campus Connect',
-  description: 'Plateforme de communication pour les membres du campus universitaire.',
+import React, { useState } from 'react';
+import Header from '@/components/Layout/Header';
+import { User } from '@/types';
+import '../styles/globals.css'; // Assure-toi que ce fichier existe
 
-};
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return(
+  const user: User = {
+    _id: 'abc123',
+    userID: '123',
+    name: 'Jean Dupont',
+    email: 'jean.dupont@example.com',
+    role: 'student',
+    status: 'online',
+    avatar: '/avatars/jean.png',
+    department: 'Informatique',
+  };
+
+  const handleLogout = () => {
+    console.log('Déconnexion');
+    // logiques de déconnexion ici
+  };
+
+  return (
     <html lang="fr">
-      <body className="bg-gray-100">
-        {children}
+      <body>
+        <Header
+          sidebarOpen={sidebarOpen}
+          onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          currentUser={user}
+          onLogout={handleLogout}
+        />
+        <main>{children}</main>
       </body>
     </html>
   );

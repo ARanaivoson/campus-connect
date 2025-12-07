@@ -1,138 +1,16 @@
+/* globals.css */
+
+/* Import de la base Tailwind (reset et styles de base) */
 @tailwind base;
+
+/* Import des composants Tailwind (styles de composants) */
 @tailwind components;
+
+/* Import des utilitaires Tailwind (classes utilitaires) */
 @tailwind utilities;
 
-@layer base {
-  html {
-    @apply antialiased;
-  }
-  
-  body {
-    @apply bg-primary-50 text-neutral-800 font-sans;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-neutral-900 leading-tight;
-  }
-  
-  h1 {
-    @apply text-3xl md:text-4xl;
-  }
-  
-  h2 {
-    @apply text-2xl md:text-3xl;
-  }
-  
-  h3 {
-    @apply text-xl md:text-2xl;
-  }
-  
-  h4 {
-    @apply text-lg md:text-xl;
-  }
-  
-  a {
-    @apply text-primary-600 hover:text-primary-700 transition-colors;
-  }
-  
-  p {
-    @apply leading-relaxed;
-  }
-}
-
-@layer components {
-  .btn {
-    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
-  }
-  
-  .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
-  }
-  
-  .btn-secondary {
-    @apply bg-white text-neutral-800 border border-neutral-300 hover:bg-neutral-50 focus:ring-primary-500;
-  }
-  
-  .btn-success {
-    @apply bg-success-500 text-white hover:bg-success-700 focus:ring-success-500;
-  }
-  
-  .input {
-    @apply rounded-md border border-neutral-300 px-3 py-2 text-sm shadow-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none placeholder:text-neutral-400;
-  }
-  
-  .card {
-    @apply bg-white rounded-lg shadow-subtle p-4;
-  }
-  
-  .badge {
-    @apply inline-flex items-center rounded-full px-2 py-1 text-xs font-medium;
-  }
-  
-  .badge-primary {
-    @apply bg-primary-100 text-primary-700;
-  }
-  
-  .badge-success {
-    @apply bg-success-100 text-success-700;
-  }
-  
-  .badge-warning {
-    @apply bg-warning-100 text-warning-700;
-  }
-  
-  .badge-error {
-    @apply bg-error-100 text-error-700;
-  }
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  @apply w-2;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-neutral-300 rounded-full hover:bg-neutral-400 transition-colors;
-}
-
-/* Custom animations */
-.message-appear {
-  animation: messageAppear 0.3s ease-out forwards;
-}
-
-@keyframes messageAppear {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.typing-indicator span {
-  @apply inline-block w-1 h-1 rounded-full bg-neutral-400 mx-0.5;
-  animation: typingBounce 1.2s infinite ease-in-out;
-}
-
-.typing-indicator span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.typing-indicator span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes typingBounce {
-  0%, 60%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-4px);
-  }
+/* Tu peux ajouter ici des styles globaux personnalisés si besoin */
+/* Par exemple, forcer la font Inter partout : */
+body {
+  @apply font-sans bg-neutral-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
 }

@@ -47,7 +47,7 @@ const seedData = async () => {
     },
   ];
   await User.insertMany(users);
-  console.log("Utilisateurs enregistrés avec succès!");
+  console.log("Utilisateurs enregistrés avec succès !");
 
   // Récupérer 2 utilisateurs pour notifications et discussions
   const savedUsers = await User.find().limit(2);
@@ -72,18 +72,22 @@ const seedData = async () => {
   await Notification.insertMany(notifications);
   console.log("Notifications insérées avec succès !");
 
-  // Création de messages
+  // Création de messages avec champ 'receiver' ajouté
   const message1 = new Message({
     sender: savedUsers[0]._id,
+    receiver: savedUsers[1]._id,  // <-- ici
     content: "Salut Smith, comment ça va ?",
     createdAt: new Date(),
+    updatedAt: new Date(),
   });
   await message1.save();
 
   const message2 = new Message({
     sender: savedUsers[1]._id,
+    receiver: savedUsers[0]._id,  // <-- ici
     content: "Salut Andréa, ça va bien merci !",
     createdAt: new Date(),
+    updatedAt: new Date(),
   });
   await message2.save();
 
@@ -92,6 +96,8 @@ const seedData = async () => {
     participants: [savedUsers[0]._id, savedUsers[1]._id],
     messages: [message1._id, message2._id],
     updatedAt: new Date(),
+    type: 'direct', 
+
   });
   await discussion.save();
   console.log("Discussion insérée avec succès !");

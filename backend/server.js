@@ -43,23 +43,25 @@ app.get("/", (req, res) => {
   res.send("API Campus Connect est en ligne!");
 });
 
+// Endpoint de test pour vérifier la connexion backend ↔ frontend
+app.get('/api/status', (req, res) => {
+  res.json({ message: 'Backend connecté avec succès !' });
+});
+
 // Socket.IO - Gestion temps réel
 io.on("connection", (socket) => {
   console.log("📡 Utilisateur connecté:", socket.id);
 
-  // Rejoindre une room de discussion
   socket.on("joinDiscussion", ({ discussionId }) => {
     socket.join(discussionId);
     console.log(`Utilisateur ${socket.id} rejoint discussion ${discussionId}`);
   });
 
-  // Quitter une room de discussion
   socket.on("leaveDiscussion", ({ discussionId }) => {
     socket.leave(discussionId);
     console.log(`Utilisateur ${socket.id} quitte discussion ${discussionId}`);
   });
 
-  // Envoyer un message dans une discussion
   socket.on("sendMessage", async ({ discussionId, senderId, content }) => {
     try {
       const newMessage = new Message({
@@ -69,14 +71,12 @@ io.on("connection", (socket) => {
       });
       await newMessage.save();
 
-      // Mettre à jour la discussion pour y ajouter le message
       const Discussion = require("./models/Discussion");
       await Discussion.findByIdAndUpdate(discussionId, {
         $push: { messages: newMessage._id },
         updatedAt: new Date(),
       });
 
-      // Émettre le message à tous les clients dans la room
       io.to(discussionId).emit("receiveMessage", newMessage);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message :", error);
@@ -88,8 +88,8 @@ io.on("connection", (socket) => {
   });
 });
 
-// Routes supplémentaires (exemple)
-app.get('/users', async (req, res) => {
+// Routes supplémentaires
+app.get('/api/users', async (req, res) => {
   const users = await User.find();
   res.json(users);
 });
@@ -105,5 +105,6 @@ app.get('/messages/:senderId/:receiverId', async (req, res) => {
   res.json(messages);
 });
 
+// Lancement du serveur
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`🚀 Serveur actif sur le port ${PORT}`));
